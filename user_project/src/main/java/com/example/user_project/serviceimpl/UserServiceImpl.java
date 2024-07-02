@@ -209,7 +209,7 @@ public class UserServiceImpl implements UserService {
        c.setVariable("message","this is html template");
 
        //calling sendEmailWithTemplate() method here
-       sendEmailWithTemplate("animesh3511@gmail.com","ritujagawade9799@gmail.com","regarding saving your info",templateName,c);
+      // sendEmailWithTemplate("animesh3511@gmail.com","ritujagawade9799@gmail.com","regarding saving your info",templateName,c);
 
        return "user saved";
 
