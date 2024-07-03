@@ -203,8 +203,34 @@ return new ResponseEntity(new CustomEntityResponse(e.getMessage(),-1),HttpStatus
   // fileUpload() method ends here
   }
 
+  @GetMapping("/findAll")
+  public ResponseEntity<?> findAll(@RequestParam (defaultValue = "0",required = false) Integer pageNo,
+                                    @RequestParam (defaultValue = "10",required = false) Integer pageSize)
+  {
+
+     Pageable pageable = PageRequest.of(pageNo,pageSize);
+
+    try{
+
+      return new ResponseEntity(new EntityResponse(userService.findAll(pageable),0),HttpStatus.OK);
+
+
+    }catch (Exception e)
+    {
+
+     return new ResponseEntity(new CustomEntityResponse(e.getMessage(),-1),HttpStatus.BAD_REQUEST);
+
+    }
+
+
+
+  }
+
+
+
+
+
+
 //class ends here
 
-
-    ////this is github check
 }

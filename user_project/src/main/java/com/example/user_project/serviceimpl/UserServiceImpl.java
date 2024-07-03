@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+import org.w3c.dom.stylesheets.LinkStyle;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
 
@@ -34,6 +35,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
@@ -95,7 +97,7 @@ public class UserServiceImpl implements UserService {
        else
        {
 
-        return "password must be 5 to 15 units long and contain a digit,an alphabet and a special character";
+        return "password must be 5 to 15 units long and contain a digit,at least one lower case alphabet and a special character";
        }
        user.setCity(userRequest.getCity());
        if (isContactValid(userRequest.getContact())) {
@@ -173,7 +175,7 @@ public class UserServiceImpl implements UserService {
        else
        {
 
-           return "password must be 5 to 15 units long and contain a digit,an alphabet and a special character";
+           return "password must be 5 to 15 units long and contain a digit,at least one lower case alphabet and a special character";
        }
        user.setCity(userRequest.getCity());
        if (isContactValid(userRequest.getContact())) {
@@ -367,7 +369,7 @@ public class UserServiceImpl implements UserService {
     else
     {
 
-     return "userId is null";
+     return "userId is incorrect";
     }
 
 
@@ -444,7 +446,9 @@ public class UserServiceImpl implements UserService {
   if (!file.isEmpty() && file != null)
   {
 
-     String storagePath = "E:\\Animesh\\myWorkspace";
+    // String storagePath = "E:\\Animesh\\myWorkspace";
+
+      String storagePath = "E:\\Ruchi";
 
       Path path = Paths.get(storagePath,originalFileName);
 
@@ -456,6 +460,14 @@ public class UserServiceImpl implements UserService {
 
 
     //fileUpload() ends here
+    }
+
+    @Override
+    public Object findAll(Pageable pageable) {
+
+
+       return userRepository.findAll(pageable);
+
     }
 
 

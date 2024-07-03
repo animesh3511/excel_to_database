@@ -30,4 +30,6 @@ public interface UserService {
     Object resetPassword(String token, String newPassword);
 
     Object fileUpload(MultipartFile file) throws IOException;
+
+    Object findAll(Pageable pageable);
 }

@@ -70,4 +70,9 @@ public class User {
     private Boolean isDeleted;
 
 
+    //this is the constructor which accepts follwing strings. i have created this for purpose of Junit testing method
+    //of getByProjection method
+    public User(String userName, String email, String password, String city) {
+
+    }
 }

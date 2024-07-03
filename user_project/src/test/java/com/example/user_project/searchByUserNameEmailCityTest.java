@@ -4,6 +4,7 @@ import com.example.user_project.model.User;
 import com.example.user_project.repository.UserRepository;
 import com.example.user_project.serviceimpl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,19 +30,32 @@ public class searchByUserNameEmailCityTest {
     @InjectMocks
     UserServiceImpl userService;
 
+    private Pageable pageable;
+
+    private List<User> userList;
+
+    private Page<User> userPage;
+
+    @BeforeEach
+    void setUp()
+    {
+
+         pageable = PageRequest.of(0,10);
+
+
+         userList = Arrays.asList(new User((long)21,"Animesh_Surryawanshi","Animesh","Suryawanshi","Animesh@gmail,com","ANime#@12","Karad","7647562435", LocalDateTime.now(),LocalDateTime.now(),"jkshfyrgbevbgrkelignwtuurj",LocalDateTime.now(),true,false),
+                new User((long)21,"Animesh_Surryawanshi","Animesh","Suryawanshi","Animesh@gmail,com","ANime#@12","Karad","7647562435", LocalDateTime.now(),LocalDateTime.now(),"jkshfyrgbevbgrkelignwtuurj",LocalDateTime.now(),true,false)  );
+
+
+         userPage = new PageImpl<>(userList);
+
+
+    }
+
    @Test
     public void searchByUserNameEmailCityTest()
     {
 
-
-       Pageable pageable = PageRequest.of(0,10);
-
-
-        List<User> userList = Arrays.asList(new User((long)21,"Animesh_Surryawanshi","Animesh","Suryawanshi","Animesh@gmail,com","ANime#@12","Karad","7647562435", LocalDateTime.now(),LocalDateTime.now(),"jkshfyrgbevbgrkelignwtuurj",LocalDateTime.now(),true,false),
-                new User((long)21,"Animesh_Surryawanshi","Animesh","Suryawanshi","Animesh@gmail,com","ANime#@12","Karad","7647562435", LocalDateTime.now(),LocalDateTime.now(),"jkshfyrgbevbgrkelignwtuurj",LocalDateTime.now(),true,false)  );
-
-
-        Page<User> userPage = new PageImpl<>(userList);
 
         Mockito.when(userRepository.searchByUserNameEmailCity(Mockito.anyString(),Mockito.any(Pageable.class))).thenReturn(userPage);
 
@@ -52,6 +66,24 @@ public class searchByUserNameEmailCityTest {
         Assertions.assertEquals(userPage,result);
 
         Mockito.verify(userRepository,Mockito.times(1)).searchByUserNameEmailCity("Animesh_Suryawanshi",pageable);
+
+
+    }
+
+
+    @Test
+    public void searchByUserNameEmailCityFailTest()
+    {
+
+        Mockito.when(userRepository.findAll(pageable)).thenReturn(userPage);
+
+        Object result = userService.searchByUserNameEmailCity(null,pageable);
+
+        Assertions.assertNotNull(userPage);
+
+        Assertions.assertEquals(userPage,result);
+
+        Mockito.verify(userRepository,Mockito.times(1)).findAll(pageable);
 
 
 
